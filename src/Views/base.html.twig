@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<head>
+	<title>{% block title %}Conge{% endblock %}</title>
+	<link href="{{ app.request.basepath }}/css/main.css" rel="stylesheet" type='text/css'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="{{ app.request.basepath }}/js/script.js"></script>
+</head>
+<body>
+	<div class="header">
+		<h1>Application Conges</h1>
+	</div>
+	
+	{% block body %}
+	{% endblock body %}
+</body>
+</html>
