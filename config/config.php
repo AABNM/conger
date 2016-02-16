@@ -6,7 +6,7 @@ $app['db.options'] = array(
     'host'     => 'localhost',
     'dbname'   => 'conge',
     'user'     => 'root',
-    'password' => '',
+    'password' => 'root',
 );
 
 $app['debug'] = true;
