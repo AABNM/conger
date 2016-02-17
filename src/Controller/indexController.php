@@ -19,7 +19,7 @@ class IndexController {
         // Check if current user is admin
         $admin = $app['repository.conge']->isAdmin($id);
 
-        $app['pending_conges'] = array();
+        $pending_conges = array();
         if ($admin) {
             $pending_conges = $app['repository.conge']->getPendingConges($id);
         }
