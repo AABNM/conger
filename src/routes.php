@@ -1,6 +1,6 @@
 <?php
 
-$app->match('/index/{id}', 'App\Controller\IndexController::indexAction');
+$app->match('/index/{id}', 'App\Controller\indexController::indexAction');
 	
 $app->match('/addconge/{id}', 'App\Controller\congeController::addAction');
 	

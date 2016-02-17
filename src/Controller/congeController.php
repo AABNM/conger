@@ -9,75 +9,75 @@ use Symfony\Component\Validator\Constraints as Assert;
 use App\Model\Entity\Conge;
 use DateTime;
 
+class congeController {
 
-class congeController{
-	public function addAction(Request $request, Application $app){
-	
-		$id = $request->attributes->get('id');
+    public function addAction(Request $request, Application $app) {
 
-    	$form = $app['form.factory']->createBuilder('form')
-    		->add('date_debut', 'date', array(
-		    	'required' => true
-		    ))
-		    ->add('date_fin', 'date', array(
-		    	'required' => true
-		    ))
-        	->add('commentaire', 'textarea', array(
-        		'required' => false
-        	))
-	        ->getForm();
+        $id = $request->attributes->get('id');
 
-    	$form->handleRequest($request);
+        $form = $app['form.factory']->createBuilder('form')
+                ->add('date_debut', 'date', array(
+                    'required' => true
+                ))
+                ->add('date_fin', 'date', array(
+                    'required' => true
+                ))
+                ->add('commentaire', 'textarea', array(
+                    'required' => false
+                ))
+                ->getForm();
 
-	    if ($form->isValid()) {
-    	    $data = $form->getData();
-    	    
-    	    $conge = new Conge(
-    	    	$data['date_debut']->format('Y-m-d H:i:s'),
-    	    	$data['date_fin']->format('Y-m-d H:i:s'),
-    	    	1, //pending
-            	$data['commentaire'],
-                $id
-    	    	);
-    	    $conge->save($app);
-	
-    	    // redirect somewhere
-        	return $app->redirect('../index/'.$id);
-    	}
+        $form->handleRequest($request);
 
-    	// display the form
-    	return $app['twig']->render('form.html.twig', array('form' => $form->createView(), 'id' => $id));
+        if ($form->isValid()) {
+            $data = $form->getData();
 
-	}
-	
-	public function updtAction(Request $request, Application $app){
-		$conger_id = $request->attributes->get('cid');
-		$updt_val = $request->attributes->get('updt'); // conger accepted(2)/refused(0)
+            $conge = new Conge();
+            $conge->setDateDebut($data['date_debut']->format('Y-m-d H:i:s'));
+            $conge->setDateFin($data['date_fin']->format('Y-m-d H:i:s'));
+            $conge->setStatut(1);
+            $conge->setCommentaire($data['commentaire']);
+            $conge->setEmployeeId($id);
+            //$conge->save($app);
+            $app['repository.conge']->save($conge);
 
-		// update the conger of the employee
-		$app['db']->executeUpdate(
-           	'UPDATE conge SET statut = ? WHERE cid = ?',
-           	array(
-	           	$updt_val,
-               	$conger_id
-           	)
-        );	
-        	
-		return $app->json(array('updated' => 'ok'));
-	}
-	
-	public function getStatut($id){
-		$output = "En attente";
-		
-		if($id == 2) $output = "conger approuver";
-		if($id == 0) $output = "conger refuser";
-		
-		return $output;
-	}
-	
-	public function getDate($date){
-		$date = new DateTime();
-		
-		return $output;
-	}
+            // redirect somewhere
+            return $app->redirect('../index/' . $id);
+        }
+
+        // display the form
+        return $app['twig']->render('form.html.twig', array('form' => $form->createView(), 'id' => $id));
+    }
+
+    public function updtAction(Request $request, Application $app) {
+        $conger_id = $request->attributes->get('cid');
+        $updt_val = $request->attributes->get('updt'); // conger accepted(2)/refused(0)
+        // update the conger of the employee
+        $app['db']->executeUpdate(
+                'UPDATE conge SET statut = ? WHERE cid = ?', array(
+            $updt_val,
+            $conger_id
+                )
+        );
+
+        return $app->json(array('updated' => 'ok'));
+    }
+
+    public function getStatut($id) {
+        $output = "En attente";
+
+        if ($id == 2)
+            $output = "conger approuver";
+        if ($id == 0)
+            $output = "conger refuser";
+
+        return $output;
+    }
+
+    public function getDate($date) {
+        $date = new DateTime();
+
+        return $output;
+    }
+
 }

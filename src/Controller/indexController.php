@@ -14,26 +14,25 @@ class IndexController{
 		$id = $request->attributes->get('id');
 
 		// Conger of the current user
-		$sql = "SELECT * FROM conge WHERE e_id = ?";
-		$app['conges'] = $app['db']->fetchAll($sql, array($id));
+                $conges = $app['repository.conge']->find($id);
 		
 		// Check if current user is admin
-		$sql = "SELECT * FROM employee WHERE id = ? AND statut = 1";
-		$admin = ($app['db']->executeQuery($sql, array($id))->rowCount() > 0)? 1 : 0;
+                $admin = $app['repository.conge']->isAdmin($id);
 		
 		$app['pending_conges'] = array();
 		if($admin){
-			$sql = "SELECT * FROM conge c INNER JOIN employee e on e.id = c.e_id WHERE c.statut = 1"; // 0=refused, 1=pending, 2=accepted
-			$app['pending_conges'] = $app['db']->fetchAll($sql);
+			//$sql = "SELECT * FROM conge c INNER JOIN employee e on e.id = c.e_id WHERE c.statut = 1"; // 0=refused, 1=pending, 2=accepted
+			//$app['pending_conges'] = $app['db']->fetchAll($sql);
+                    $pending_conges = $app['repository.conge']->getPendingConges($id);
 		}
 		
 		return $app['twig']->render( // Render the page index.html.twig
 			'index.html.twig',
 			array(// Supply the arguments to be used in the template
 				'id' => $id,
-				'conges' => $app['conges'], 
+				'conges' => $conges, 
 				'admin' => $admin,
-				'pending_conges' => $app['pending_conges']
+				'pending_conges' => $pending_conges
 			)
 		);
 	}

@@ -12,8 +12,9 @@ $app->register(new Silex\Provider\TranslationServiceProvider(), array(
 ));
 
 // Register repositories.
-/*$app['repository.blog'] = $app->share(function ($app) {
-    return new App\Model\Repository\BlogRepository($app['db']);
-});*/
+$app['repository.conge'] = $app->share(function ($app) {
+    return new App\Model\Repository\CongeRepository($app['db']);
+});
+
 
 
