@@ -5,6 +5,7 @@ namespace App\Controller;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Silex\Provider\FormServiceProvider;
+use App\Model\Entity\Conge;
 use DateTime;
 
 
@@ -14,8 +15,9 @@ class EmployeeController{
 		$id = $request->attributes->get('id');
 
 		// Conger of the current user
-		$sql = "SELECT * FROM conge WHERE e_id = ? AND statut = 2"; // 2=accepted
-		$app['conges'] = $app['db']->fetchAll($sql, array($id));
+		$conge = new Conge();
+		$conge->getApproved($id, $app);
+		
 		
 		
 		return $app['twig']->render( // Render the page index.html.twig

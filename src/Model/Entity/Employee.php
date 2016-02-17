@@ -24,5 +24,5 @@ class Employee {
     
     public function setStatut($statut){
         $this->statut = $statut;
-    }    
+    }
 }

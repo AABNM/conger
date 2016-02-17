@@ -2,6 +2,8 @@
 
 namespace App\Model\Entity;
 
+use Silex\Application;
+
 /**
  * Entity Conge
  *
@@ -61,5 +63,39 @@ class Conge {
     public function setEmployeeId($employee_id){
         $this->employee_id = $employee_id;
     }    
+    
+    /*
+    **	Save the conge application 
+    */
+    public function save(Application $app){
+    	// insert into conge
+	    $app['db']->executeUpdate(
+           	'INSERT INTO conge (date_debut, date_fin, statut, commentaire, e_id) VALUES (?, ?, ?, ?, ?)',
+           	array(
+               	$this->date_debut,
+               	$this->date_fin,
+               	$this->statut,
+               	$this->commentaire,
+               	$this->employee_id
+           	)
+        );
+    }
+    
+    /*
+    **  Get approved conger from employee id
+    */
+    public function getApprovedConger($id, Application $app){
+    	$sql = "SELECT * FROM conge WHERE e_id = ? AND statut = 2"; // 2=accepted
+		$app['conges'] = $app['db']->fetchAll($sql, array($id));
+		
+		$conge = buildConge($app['conges']);
+    }
+    
+    /*
+    ** Return formatted conge properties
+    */
+    public function buildConge($congeData){
+    	
+    }
     
 }
