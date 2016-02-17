@@ -1,48 +1,48 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-	
-	<div class="m-col-1 menu">
-		<ul>
-			<li><a href="../index/{{id}}">Liste Conges</a></li>
-			<li><a href="../addconge/{{id}}">Application conges</a></li>
-		</ul>
-	</div>
-	
-	<div class="m-col-2">
-		<h1>Mes Conges</h1>
-		<div class="col-1 title">Date de debut du conge</div>
-		<div class="col-2 title">Date de fin du conge</div>
-		<div class="col-3 title">Commentaire</div>
-		<div class="col-4 title">Statut</div>
-		{% for conge in conges %}
-			<article class="m-cg">
-				<div class="col-1 item">{{ conge.date_debut }}</div>
-				<div class="col-2 item">{{ conge.date_fin }}</div>
-				<div class="col-3 item">{{ conge.commentaire }}</div>
-				<div class="col-4 item">{{ conge.statut }}</div>
-			</article>
-		{% endfor %}
-		
-		{% if(pending_conges) %}
-		<h1 class="a-cg">Autres Conges en attente</h1>
-		<div class="col-1 title">Date de debut du conge</div>
-		<div class="col-2 title">Date de fin du conge</div>
-		<div class="col-3 title">Commentaire</div>
-		<div class="col-4 title">Author</div>
-		<div class="col-5 title">Action</div>
-		{% endif %}
-		{% for conge in pending_conges %}
-			<article>
-				<div class="col-1 item">{{ conge.date_debut }}</div>
-				<div class="col-2 item">{{ conge.date_fin }}</div>
-				<div class="col-3 item">{{ conge.commentaire }}</div>
-				<div class="col-4 item"><a href="../employee/{{id}}">{{ conge.nom }}</a></div>
-				<div class="col-5 item">
-					<a href="#" class="accept" cid="{{ conge.cid }}">Accepter</a>
-					<a href="#" class="refuse" cid="{{ conge.cid }}">Refuser</a>
-				</div>
-			</article>
-		{% endfor %}
-	</div>
-	
+
+    <div class="m-col-1 menu">
+        <ul>
+            <li><a href="../index/{{id}}">Liste Conges</a></li>
+            <li><a href="../addconge/{{id}}">Application conges</a></li>
+        </ul>
+    </div>
+
+    <div class="m-col-2">
+        <h1>Mes Conges</h1>
+        <div class="col-1 title">Date de debut du conge</div>
+        <div class="col-2 title">Date de fin du conge</div>
+        <div class="col-3 title">Commentaire</div>
+        <div class="col-4 title">Statut</div>
+        {% for conge in conges %}
+            <article class="m-cg">
+                <div class="col-1 item">{{ conge.date_debut }}</div>
+                <div class="col-2 item">{{ conge.date_fin }}</div>
+                <div class="col-3 item">{{ conge.commentaire }}</div>
+                <div class="col-4 item">{{ conge.statut }}</div>
+            </article>
+        {% endfor %}
+
+        {% if(pending_conges) %}
+            <h1 class="a-cg">Autres Conges en attente</h1>
+            <div class="col-1 title">Date de debut du conge</div>
+            <div class="col-2 title">Date de fin du conge</div>
+            <div class="col-3 title">Commentaire</div>
+            <div class="col-4 title">Author</div>
+            <div class="col-5 title">Action</div>
+        {% endif %}
+        {% for conge in pending_conges %}
+            <article>
+                <div class="col-1 item">{{ conge.date_debut }}</div>
+                <div class="col-2 item">{{ conge.date_fin }}</div>
+                <div class="col-3 item">{{ conge.commentaire }}</div>
+                <div class="col-4 item"><a href="../employee/{{id}}">{{ conge.nom }}</a></div>
+                <div class="col-5 item">
+                    <a href="#" class="accept" cid="{{ conge.cid }}">Accepter</a>
+                    <a href="#" class="refuse" cid="{{ conge.cid }}">Refuser</a>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+
 {% endblock %}

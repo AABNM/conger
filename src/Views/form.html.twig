@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-	
-	<div class="m-col-1 menu">
-		<ul>
-			<li><a href="../index/{{id}}">Liste Conges</a></li>
-			<li><a href="../addconge/{{id}}">Application conges</a></li>
-		</ul>
-	</div>
 
-	<div class="m-col-2">
-		<form action="#" method="post">
-    		{{ form_widget(form) }}
-	
-    		<input type="submit" name="submit" />
-		</form>
-	</div>
+    <div class="m-col-1 menu">
+        <ul>
+            <li><a href="../index/{{id}}">Liste Conges</a></li>
+            <li><a href="../addconge/{{id}}">Application conges</a></li>
+        </ul>
+    </div>
+
+    <div class="m-col-2">
+        <form action="#" method="post">
+            {{ form_widget(form) }}
+
+            <input type="submit" name="submit" />
+        </form>
+    </div>
 {% endblock %}

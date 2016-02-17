@@ -38,7 +38,6 @@ class congeController {
             $conge->setStatut(1);
             $conge->setCommentaire($data['commentaire']);
             $conge->setEmployeeId($id);
-            //$conge->save($app);
             $app['repository.conge']->save($conge);
 
             // redirect somewhere
@@ -61,23 +60,6 @@ class congeController {
         );
 
         return $app->json(array('updated' => 'ok'));
-    }
-
-    public function getStatut($id) {
-        $output = "En attente";
-
-        if ($id == 2)
-            $output = "conger approuver";
-        if ($id == 0)
-            $output = "conger refuser";
-
-        return $output;
-    }
-
-    public function getDate($date) {
-        $date = new DateTime();
-
-        return $output;
     }
 
 }

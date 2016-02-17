@@ -20,14 +20,6 @@ class Conge {
         // allocate your stuff
     }
 
-    /* public static function __construct($date_debut, $date_fin, $statut, $commentaire, $employee_id) {
-      $this->date_debut = $date_debut;
-      $this->date_fin = $date_fin;
-      $this->statut = $statut;
-      $this->commentaire = $commentaire;
-      $this->employee_id = $employee_id;
-      } */
-
     public function getDateDebut() {
         return $this->date_debut;
     }

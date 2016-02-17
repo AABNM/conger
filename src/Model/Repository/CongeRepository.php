@@ -80,8 +80,8 @@ class CongeRepository {
                 ->setParameter('statut', 1);
 
         $statement = $queryBuilder->execute()->rowCount();
-        $isAdmin = ($statement > 0)? TRUE : FALSE;
-        
+        $isAdmin = ($statement > 0) ? TRUE : FALSE;
+
         return $isAdmin;
     }
 
@@ -133,7 +133,7 @@ class CongeRepository {
 
         // pass though temporary class to get values as we have set property as private
         $temp = new \stdClass();
-        $temp->date_debut = $conge->getDateDebut();
+        $temp->date_debut = getFormattedDate($conge->getDateDebut());
         $temp->date_fin = $conge->getDateDebut();
         $temp->statut = $conge->getStatutText();
         $temp->commentaire = $conge->getCommentaire();
